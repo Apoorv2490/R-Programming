@@ -1,0 +1,54 @@
+
+######## READING CSV ########
+
+sales <- read.csv('~//Desktop//Knowledge Base//EMC_Book//Chapter-3//yearly_sales.csv', header = TRUE , sep = ",")
+
+######## SETTING WORKING DIRECTORY ########
+
+setwd('~//Desktop//Knowledge Base//EMC_Book//Chapter-3//')
+
+######## DATA TYPES ###########
+
+class(variable)
+typeof(variable)
+
+### CHECK FOR INTEGER ONLY
+is.integer(variable). # Returns "True" or "False"
+
+### CHECK FOR VECTOR ONLY
+is.vector(variable). # Returns "True" or "False"
+
+### CHECK FOR DATAFRAME ONLY
+is.data.frame(variable). # Returns "True" or "False"
+
+### CHECK FOR FACTOR ONLY
+is.factor(variable). # Returns "True" or "False"
+
+########## COMBINING DATA ROW WISE AND COLUMN WISE ######
+
+cbind(D1,D2...) ### Column-wise
+
+rbind(D1, D2 ...) ### Row-wise
+
+########### DESCRIPTIVE STATS #####
+
+# ASSUMPTION: a and b are 2 numerical columns in a data frame
+
+cor(a,b) ## Correlation
+cov(a,b) ## Covariance
+IQR(a) ## Interquartile range
+mean(a) ## Mean
+median(a) ## Median
+range(a)  ## Returns min and max
+sd(a) ## Standard deviation
+var(a) ## Variance
+
+######## BASIC REGRESSION ########
+
+results<-lm(sales$sales_total ~ sales$num_of_orders)
+summary(results)
+
+######## PLOT () ########
+
+plot(sales$num_of_orders, sales$sales_total, main = "Number of Orders vs Sales")
+
