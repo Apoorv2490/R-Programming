@@ -1,0 +1,97 @@
+##################################### VISUALIZATION BEFORE ANALYSIS
+
+install.packages("ggplot2") ## Library used for plotting
+library("ggplot2")
+
+### EXAMPLE DATA SET "anscombe"
+
+data(anscombe)
+
+nrow(anscombe)
+
+###. GENERATE LEVELS TO INDICATE WHICH GROUP EACH DATA POINT BELONGS TO
+
+levels <- gl(4, nrow(anscombe))
+
+##### GROUP IT INTO A DAT FRAME
+
+myData <- with(anscombe, data.frame(x=c(x1,x2,x3,x4), y=c(y1,y2,y3,y4), mygroup=levels))
+
+##### FOR PLOTTING THE DATA
+
+theme_set(theme_bw())
+
+ggplot(myData, aes(x,y)) + geom_point(size=4) + 
+geom_smooth(method = "lm", fill=NA, fullrange = TRUE) +
+facet_wrap(~mygroup)
+
+##################################### IDENTIFYING DIRTY DATA 
+
+####### REMOVING NA
+
+is.na(data) ### Identifies whether the data has NA or not by returning "TRUE" or "FALSE"
+
+na.exclude() ### Returns objects with incomplete cases removed
+
+##################################### VISUALIZING A SINGLE VARIABLE
+
+#### DOT CHART AND BAR PLOT
+
+data(mtcars)
+
+dotchart(mtcars$mpg, labels=row.names(mtcars), cex=.7, main="Miles per gallon", xlab="number of cylinders")
+
+barplot(table(mtcars$cyl), main="Distribution of car cylinder counts", xlab="Number of clylinders")
+
+#### HISTOGRAM AND DENSITY PLOT
+
+income <- rlnorm(4000, meanlog = 4, sdlog = 0.7) ## Randomly genrates 4000 observations from log normal distribution
+summary(income)
+
+income = income * 1000
+summary(income)
+
+# Histogram
+hist(income, breaks=500, xlab="Income", main="Histogram of Income")
+
+# Density Plot
+plot(density(log10(income), adjust=0.5), main="Distributio of Income")
+
+rug(log10(income))
+
+##################################### VISUALIZING MULTIPLE VARIABLES
+
+##### SCATTER PLOT
+
+## 75 numbers between 0 an 10 of uniform distribution
+x <- runif(75,0,10)
+
+x <- sort(x)
+y <- 200 + x^3 - 10 * x^2 + x + rnorm(75,0,20)
+
+lr <- lm (y~x) ## Linear Regression
+poly <- loess(y~x) ## Loess
+
+fit <- predict(poly) ## Fit a non linear regression
+plot(x,y)
+
+points(x, lr$coefficients[1] + lr$coefficients[1]*x,type = "l", col = 2) ## fitted line with linear regression
+
+points(x, fit, type = "l", col=4) fitted line with loess
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
