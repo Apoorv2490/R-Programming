@@ -1,0 +1,51 @@
+
+#################### DIFFERNCE OF MEANS HYPOTHESIS TEST
+
+############## 2 SAMPLES
+
+#########PARAMETRIC TESTS
+
+##### STUDENT'S t-test
+
+x <- rnorm(10, mean = 100, sd = 5)
+y <- rnorm(20, mean = 105, sd = 5)
+
+t.test(x,y, var.equal=TRUE)
+
+qt(p=0.05/2, df=28, lower.tail = FALSE) ### To get table value of t corresponding to 0.05 significance
+
+##### WELCH'S t-test
+
+t.test(x,y, var.equal=FALSE)
+
+######### NON PARAMETRIC TESTS
+
+##### WILCOXON RANK-SUM TEST
+
+wilcox.test(x,y, conf.int = TRUE)
+
+################## MORE THAN 2 SAMPLES
+
+# CREATE DATASET THROUGH SIMULATIONS
+offers <- sample(c("offer1", "offer2", "nopromo"), size = 500, replace = T)
+
+offertest <- ifelse(offers == "offer1", rnorm(500, mean=80, sd =30),
+					ifelse(offers =="offer2", rnorm(500, mean=85, sd =30),
+					rnorm(500, mean=40, sd =30)))
+					
+offertest <- data.frame(offer=as.factor(offers), purchase_amt = purchasesize)
+
+# CHECK BASICS ABOUT DATASET 
+summary(offertest[offerttest$offer=="offer1"])
+summary(offertest[offerttest$offer=="offer2"])
+summary(offertest[offerttest$offer=="nopromo"])
+
+# RUN ANOVA
+model <- aov(purchase_amt ~ offers, data=offertest)
+
+summary(model)
+
+# It gives honest significance difference for all pairwise tests for difference of means
+TurkeyHSD(model) 
+
+
