@@ -1,0 +1,54 @@
+######## REQUIRED LIBRARIES
+install.packages("gridExtra")
+install.packages("plyr")
+install.packages("ggplot2")
+install.packages("cluster")
+install.packages("lattice")
+install.packages("graphics")
+install.packages("grid")
+
+library(plyr)
+library(ggplot2)
+library(cluster)
+library(lattice)
+library(graphics)
+library(grid)
+library(gridExtra)
+
+
+
+######### IMPORTING FILE
+
+grades_input <- as.data.frame(read.csv('~//"Folder Path Where File Is Stored"//grades_km_input.csv', header = TRUE , sep = ","))
+
+######## REMOVING VARIABLES NOT USED IN CLUSTERING AND CONVERTING TO MATRIX
+
+kmdata_orig <- as.matrix(grades_input[,c("Student","English","Math","Science")])
+
+kmdata <- kmdata_orig[,2:4] #### REMOVES STUDENT COLUMN AS ITS NOT USED IN CLUSETRING
+
+########## CALCULATING WSS (WITHIN SUM OF SQUARES)
+
+wss <- numeric(15)
+for (k in 1:15) wss[k] <- sum(kmeans(kmdata, centers = k, nstart = 25)$withinss)
+plot(1:15, wss, type = "b", xlab ="Number of clusters", ylab="Within sum of squares")
+
+########## CREATING CLUSTERS
+
+km <- kmeans(kmdata, 3, nstart=25) # HERE THE K-MEANS ALGORTITHM IS REPEATED 25 TIMES STARTING WITH 3 INITIAL 											CENTROIDS
+km
+
+########## PLOTTING THE CLUSTERS
+
+df <- data.frame(kmdata_orig[,2:4])
+df$cluster <- factor(km$cluster)
+centers <- as.data.frame(km$centers)
+
+
+g1 <- ggplot(df, aes(x=English, y=Math, color = cluster)) ### COLOR REPRESENTS COLOR BY OPTION
+g1 + geom_point() + geom_point(data = centers, 
+								aes(x=English, y=Math, color =as.factor(c(1,2,3))), size =10)
+
+
+
+
