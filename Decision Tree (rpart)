@@ -24,6 +24,8 @@ library("rpart.plot")
  
  fit<-rpart(Play ~ Outlook+Temperature+Humidity+Wind, method = "class", data = play_decision, control = rpart.control(minsplit=1), parms=list(split='information'))
  
+ summary(fit)
+ 
  rpart.plot(fit, type=4, extra=2, clip.right.labs = FALSE,varlen=0, faclen=0)
  
  ####### TO PREDICT
