@@ -1,0 +1,33 @@
+############################ SAMPLE DATA #######################################
+
+Play,Outlook,Temperature,Humidity,Wind
+yes,rainy,cool,normal,FALSE
+no,rainy,cool,normal,TRUE
+yes,overcast,hot,high,FALSE
+no,sunny,mild,high,FALSE
+yes,rainy,cool,normal,FALSE
+yes,sunny,cool,normal,FALSE
+yes,rainy,cool,normal,FALSE
+yes,sunny,hot,normal,FALSE
+yes,overcast,mild,high,TRUE
+no,sunny,mild,high,TRUE
+
+########################## R-CODE ##########################################
+
+install.packages("rpart")
+install.packages("rpart.plot")
+
+library("rpart")
+library("rpart.plot")
+
+ play_decision <- read.csv('[Path to file where sample data is stored]',header = TRUE, sep=",")
+ 
+ fit<-rpart(Play ~ Outlook+Temperature+Humidity+Wind, method = "class", data = play_decision, control = rpart.control(minsplit=1), parms=list(split='information'))
+ 
+ rpart.plot(fit, type=4, extra=2, clip.right.labs = FALSE,varlen=0, faclen=0)
+ 
+ ####### TO PREDICT
+ 
+newdata <- data.frame(Outlook="rainy", Temperature = "mild", Humidity = "high", Wind=FALSE)
+
+predict(fit, newdata = newdata, type = "prob")
