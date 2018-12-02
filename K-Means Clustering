@@ -46,8 +46,7 @@ centers <- as.data.frame(km$centers)
 
 
 g1 <- ggplot(df, aes(x=English, y=Math, color = cluster)) ### COLOR REPRESENTS COLOR BY OPTION
-g1 + geom_point() + geom_point(data = centers, 
-								aes(x=English, y=Math, color =as.factor(c(1,2,3))), size =10)
+g1 + geom_point() + geom_point(data = centers, aes(x=English, y=Math, color =as.factor(c(1,2,3))), size =10)
 
 
 
