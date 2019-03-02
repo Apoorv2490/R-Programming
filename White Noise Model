@@ -1,0 +1,4 @@
+############### SIMULATING WHITE NOISE MODEL ARIMA(0,0,0)
+
+white_noise <- arima.sim(model = list(order = c(0,0,0)), n = 100, mean = 100, sd = 10)
+summary(white_noise_2)
