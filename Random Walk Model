@@ -1,0 +1,5 @@
+
+## Create a non stationary time series data set
+y <- arima.sim(model = list(order = c(0,1,0)))
+
+random_walk <- arima(y,order = c(0,1,0))
