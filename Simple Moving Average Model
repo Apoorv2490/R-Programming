@@ -1,0 +1,6 @@
+## For slope(θ) = 0.5 create MA series
+y <- arima.sim(model = list(ma = 0.5), n = 100)
+
+MA_model <- arima(y,order = c(0,0,1))
+
+MA_model_predict <- predict(MA_model, n.ahead = 6)
