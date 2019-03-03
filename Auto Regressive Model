@@ -1,0 +1,6 @@
+## For slope(φ) = 0.5 create AR series
+y <- arima.sim(model = list(ar = 0.5), n = 100)
+
+AR_model <- arima(y,order = c(1,0,0))
+
+AR_model_predict <- predict(AR_model, n.ahead = 6)
