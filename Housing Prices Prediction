@@ -71,8 +71,8 @@ house_pricing_1['BedroomAbvGr'] <- as.factor(house_pricing_1$BedroomAbvGr)
 
 
 ## TEST
-intgrs<- unlist(lapply(house_pricing_1, is.integer)) #### Picking only factors variable
-summary(house_pricing_1[, intgrs]) ### Summary of factprs
+#intgrs<- unlist(lapply(house_pricing_1, is.integer)) #### Picking only factors variable
+#summary(house_pricing_1[, intgrs]) ### Summary of factprs
 #summary(select_if(house_pricing_1,is.integer)) ### See all the columns in integer ####
 
 
