@@ -1,0 +1,19 @@
+install.packages("arules")
+library(arules)
+
+data(Groceries)
+str(Groceries) ## NOTE: The data has to be in transaction form
+
+### In case the data is not in transaction form use this command to convert it to transaction form
+
+Groceries <- as(Groceries, "transactions") 
+
+## Generate association rules
+rules <- apriori(Groceries, parameter=list(supp=0.001, conf=0.08)) 
+
+### To look at rules
+inspect(rules) 
+
+### Here a data frame of rules along with their associations is created
+
+ruleList <- data.frame(lhs = labels(lhs(rules)) , rhs = labels(rhs(rules)), rules@quality) 
